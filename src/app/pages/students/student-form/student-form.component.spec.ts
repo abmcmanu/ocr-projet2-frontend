@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { of, throwError } from 'rxjs';
 import { StudentFormComponent } from './student-form.component';
 import { StudentService } from '../../../core/service/student.service';
@@ -25,7 +24,7 @@ describe('StudentFormComponent — create mode', () => {
     };
 
     await TestBed.configureTestingModule({
-      imports: [StudentFormComponent, RouterTestingModule, NoopAnimationsModule],
+      imports: [StudentFormComponent, RouterTestingModule],
       providers: [
         { provide: StudentService, useValue: studentServiceMock },
         { provide: ActivatedRoute, useValue: { snapshot: { paramMap: { get: () => null } } } }
@@ -87,7 +86,7 @@ describe('StudentFormComponent — edit mode', () => {
     };
 
     await TestBed.configureTestingModule({
-      imports: [StudentFormComponent, RouterTestingModule, NoopAnimationsModule],
+      imports: [StudentFormComponent, RouterTestingModule],
       providers: [
         { provide: StudentService, useValue: studentServiceMock },
         { provide: ActivatedRoute, useValue: { snapshot: { paramMap: { get: () => '1' } } } }
@@ -117,5 +116,25 @@ describe('StudentFormComponent — edit mode', () => {
     expect(studentServiceMock.update).toHaveBeenCalledWith(1, {
       firstName: 'Marie', lastName: 'Curie', email: 'marie@example.com'
     });
+  });
+
+  it('should display error when loading student fails', () => {
+    studentServiceMock.getById.mockReturnValue(throwError(() => ({
+      error: { message: 'Chargement impossible' }
+    })));
+
+    component.ngOnInit();
+
+    expect(component.errorMessage).toBe('Chargement impossible');
+    expect(component.loading).toBe(false);
+  });
+
+  it('onCancel() should navigate to /students', () => {
+    const router = TestBed.inject(Router);
+    const navigateSpy = jest.spyOn(router, 'navigate');
+
+    component.onCancel();
+
+    expect(navigateSpy).toHaveBeenCalledWith(['/students']);
   });
 });

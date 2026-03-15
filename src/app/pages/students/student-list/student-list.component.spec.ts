@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
 import { StudentListComponent } from './student-list.component';
 import { StudentService } from '../../../core/service/student.service';
@@ -15,6 +15,7 @@ describe('StudentListComponent', () => {
   let component: StudentListComponent;
   let fixture: ComponentFixture<StudentListComponent>;
   let studentServiceMock: { getAll: jest.Mock; delete: jest.Mock };
+  let router: Router;
 
   beforeEach(async () => {
     studentServiceMock = {
@@ -23,12 +24,13 @@ describe('StudentListComponent', () => {
     };
 
     await TestBed.configureTestingModule({
-      imports: [StudentListComponent, RouterTestingModule, NoopAnimationsModule],
+      imports: [StudentListComponent, RouterTestingModule],
       providers: [{ provide: StudentService, useValue: studentServiceMock }]
     }).compileComponents();
 
     fixture = TestBed.createComponent(StudentListComponent);
     component = fixture.componentInstance;
+    router = TestBed.inject(Router);
     fixture.detectChanges();
   });
 
@@ -69,5 +71,38 @@ describe('StudentListComponent', () => {
     component.delete(1);
 
     expect(studentServiceMock.delete).not.toHaveBeenCalled();
+  });
+
+  it('should display error message when delete fails', () => {
+    jest.spyOn(window, 'confirm').mockReturnValue(true);
+    studentServiceMock.delete.mockReturnValue(throwError(() => ({
+      error: { message: 'Erreur suppression' }
+    })));
+
+    component.delete(1);
+
+    expect(component.errorMessage).toBe('Erreur suppression');
+  });
+
+  it('goToDetail() should navigate to /students/:id', () => {
+    const navigateSpy = jest.spyOn(router, 'navigate');
+    component.goToDetail(42);
+    expect(navigateSpy).toHaveBeenCalledWith(['/students', 42]);
+  });
+
+  it('goToCreate() should navigate to /students/new', () => {
+    const navigateSpy = jest.spyOn(router, 'navigate');
+    component.goToCreate();
+    expect(navigateSpy).toHaveBeenCalledWith(['/students', 'new']);
+  });
+
+  it('logout() should clear token and navigate to /login', () => {
+    localStorage.setItem('token', 'abc');
+    const navigateSpy = jest.spyOn(router, 'navigate');
+
+    component.logout();
+
+    expect(localStorage.getItem('token')).toBeNull();
+    expect(navigateSpy).toHaveBeenCalledWith(['/login']);
   });
 });

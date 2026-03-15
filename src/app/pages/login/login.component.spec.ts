@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of, throwError } from 'rxjs';
 import { LoginComponent } from './login.component';
 import { UserService } from '../../core/service/user.service';
@@ -14,7 +13,7 @@ describe('LoginComponent', () => {
     userServiceMock = { login: jest.fn() };
 
     await TestBed.configureTestingModule({
-      imports: [LoginComponent, RouterTestingModule, NoopAnimationsModule],
+      imports: [LoginComponent, RouterTestingModule],
       providers: [{ provide: UserService, useValue: userServiceMock }]
     }).compileComponents();
 
@@ -59,6 +58,15 @@ describe('LoginComponent', () => {
 
     expect(component.errorMessage).toBe('Identifiants invalides');
     expect(component.loading).toBe(false);
+  });
+
+  it('should display fallback error message when no error body', () => {
+    userServiceMock.login.mockReturnValue(throwError(() => ({})));
+    component.loginForm.setValue({ login: 'user', password: 'wrong' });
+
+    component.onSubmit();
+
+    expect(component.errorMessage).toBe('Identifiants invalides. Veuillez réessayer.');
   });
 
   it('should reset form and clear error on onReset()', () => {
