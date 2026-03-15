@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
         next: (token: string) => {
           this.loading = false;
           localStorage.setItem('token', token);
-          alert('Authentification réussie !');
+          this.router.navigate(['/students']);
         },
         error: (err) => {
           this.loading = false;

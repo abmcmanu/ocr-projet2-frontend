@@ -1,0 +1,30 @@
+<div class="container">
+  @if (errorMessage) {
+    <div class="alert alert-danger">{{ errorMessage }}</div>
+  }
+
+  @if (loading) {
+    <div class="center-spinner">
+      <mat-spinner diameter="40"></mat-spinner>
+    </div>
+  }
+
+  @if (student) {
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>{{ student.firstName }} {{ student.lastName }}</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <p><strong>Email :</strong> {{ student.email }}</p>
+        <p><strong>Créé le :</strong> {{ student.createdAt | date:'dd/MM/yyyy HH:mm' }}</p>
+        <p><strong>Modifié le :</strong> {{ student.updatedAt | date:'dd/MM/yyyy HH:mm' }}</p>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="goToEdit()">Modifier</button>
+        <button mat-button (click)="goToList()">Retour à la liste</button>
+      </mat-card-actions>
+    </mat-card>
+  }
+</div>

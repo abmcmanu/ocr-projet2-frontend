@@ -1,0 +1,39 @@
+:host {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+.container {
+  width: 100%;
+  max-width: 800px;
+}
+
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.actions-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.center-spinner {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.empty-msg {
+  text-align: center;
+  padding: 1rem;
+  color: #666;
+}

@@ -1,0 +1,23 @@
+:host {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+.container {
+  width: 100%;
+  max-width: 500px;
+}
+
+.center-spinner {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+mat-card-actions {
+  display: flex;
+  gap: 0.5rem;
+  padding: 1rem;
+}
