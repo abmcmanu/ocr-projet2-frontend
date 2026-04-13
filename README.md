@@ -1,59 +1,39 @@
-# EtudiantFrontend
+# Projet 2 - Frontend : Testez et améliorez une application existante
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.16.
+Bienvenue dans le dépôt frontend du projet 2  du parcours **Architecte Logiciel**. 
 
-## Development server
+---
 
-To start a local development server, run:
+## 📱 Présentation de l'application
 
-```bash
-ng serve
-```
+Cette application est une solution **Full Stack** complète intégrant les meilleures pratiques de développement moderne. Elle est conçue pour répondre à des besoins de performance  tout en assurant une séparation claire des responsabilités entre le front-end et le back-end.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+![Schéma de l'application Full Stack](https://raw.githubusercontent.com/abmcmanu/ocr-projet2-frontend/main/public/archi-overview.png)
+> *Figure 1 : Aperçu de l'architecture des composants.*
 
-## Code scaffolding
+### Points clés de l'architecture :
+* **Front-end** : Interface réactive et composants modulaires.
+* **Back-end** : API structurée, gestion de la logique métier et persistance des données.
+* **Communication** : Échanges sécurisés via protocoles standards.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+---
 
-```bash
-ng generate component component-name
-```
+## ⚙️ Installation et Configuration
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Pour mettre en place l'environnement de développement et lancer le projet localement, veuillez suivre les instructions détaillées dans le fichier suivant :
 
-```bash
-ng generate --help
-```
+👉 **[Consulter le guide d'installation (install.md)](./install.md)**
 
-## Building
+⚠️ **Note importante** : Ce projet nécessite un environnement backend fonctionnel pour opérer correctement.
 
-To build the project run:
+1.  **Prérequis (Backend)** : Avant de lancer cette application, assurez-vous d'avoir installé et démarré le serveur.
+    👉 **[Accéder au dépôt du Backend](https://github.com/abmcmanu/ocr-projet2.git)**
 
-```bash
-ng build
-```
+---
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+### Résumé des métriques :
+* **Tests Unitaires** : Validation des composants isolés.
+* **Tests d'Intégration** : Vérification de la communication entre les modules.
+* **Couverture de code (Code Coverage)** : Analyse du pourcentage de code testé pour prévenir les régressions.
 
-## Running unit tests
-
-To execute unit tests with the [Jest](https://jestjs.io/) test runner, use the following command:
-
-```bash
-jest
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+👉 **[Consulter les rapports des tests ( voir dossier ./rapport)](./rapport)**
